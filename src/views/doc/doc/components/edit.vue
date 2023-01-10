@@ -22,10 +22,11 @@
          </el-col>
          <el-col :span="24">
            <el-form-item label="正文" prop="content">
-              <!--
-             <rich-text v-model:value="form.content" ref="formContentRef" placeholder="请输入正文"></rich-text>
-             -->
+             <rich-text v-model:value="form.content" ref="formContentRef" placeholder="请输入正文"/>
+
+             <!--
              <el-input v-model="form.content" type="textarea" placeholder="请输入正文: 暂时使用纯文本" />
+             -->
            </el-form-item>
          </el-col>
        </el-row>
