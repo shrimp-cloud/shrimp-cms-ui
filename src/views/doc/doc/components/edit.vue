@@ -43,6 +43,7 @@
 
 <script setup name="DocEdit">
 import { docInfo,docSave, docCategoryOptions} from "@/api/doc";
+import RichText from '@/components/RichText';
 
 defineExpose({handleEdit})
 const emit = defineEmits(['change']);

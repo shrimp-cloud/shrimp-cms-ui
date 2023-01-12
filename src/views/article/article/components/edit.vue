@@ -47,6 +47,7 @@
 
 <script setup name="ArticleEdit">
 import { articleInfo,articleSave, articleCategoryOptions} from "@/api/article";
+import RichText from '@/components/RichText';
 
 defineExpose({handleEdit})
 const emit = defineEmits(['change']);
