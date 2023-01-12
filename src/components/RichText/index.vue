@@ -28,7 +28,7 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
-import BlotFormatter from 'quill-blot-formatter';
+import ImageUploader from "quill-image-uploader";
 import request from '@/utils/request';
 
 const { value } = defineProps({
@@ -41,8 +41,24 @@ const emit = defineEmits(['update:value']);
 const { proxy } = getCurrentInstance();
 
 const modules = [{
-  name: 'blotFormatter',
-  module: BlotFormatter
+  name: "imageUPloader",
+  module: ImageUploader,
+  options: {
+    upload: (file) => {
+      const formData = new FormData();
+      formData.append("file", file);
+      return request
+          .post(`/sys/common/upload?busnessType=article`, formData)
+          .then((res) => {
+            if (res.code !== 1) {
+              proxy.$modal.msgError("上传异常：" + res.msg);
+              return;
+            }
+            const url = res.data.url;
+            return url;
+          });
+    },
+  },
 }];
 
 
