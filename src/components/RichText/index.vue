@@ -7,6 +7,7 @@
       v-bind="$attrs"
       :content="value"
       @update:content="e => $emit('update:value', e)"
+      :modules="modules"
       :toolbar="[
         [{ size: ['small', false, 'large', 'huge'] }],
         [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -27,6 +28,7 @@
 <script setup>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
+import BlotFormatter from 'quill-blot-formatter';
 import request from '@/utils/request';
 
 const { value } = defineProps({
@@ -37,6 +39,12 @@ const { value } = defineProps({
 });
 const emit = defineEmits(['update:value']);
 const { proxy } = getCurrentInstance();
+
+const modules = [{
+  name: 'blotFormatter',
+  module: BlotFormatter
+}];
+
 
 </script>
 <style>
