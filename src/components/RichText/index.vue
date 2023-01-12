@@ -25,20 +25,13 @@
 </template>
 
 
-<script>
+<script setup>
 import { QuillEditor } from "@vueup/vue-quill";
 import "@vueup/vue-quill/dist/vue-quill.snow.css";
 import ImageUploader from "quill-image-uploader";
-import BlotFormatter from 'quill-blot-formatter';
+// import BlotFormatter from 'quill-blot-formatter';
 import request from '@/utils/request';
 
-export default {
-  components: {
-    QuillEditor,
-  },
-};
-</script>
-<script setup>
 const { value } = defineProps({
   value: {
     type: String,
@@ -66,10 +59,14 @@ const modules = [{
         });
     },
   },
-}, {
+}
+/*
+, {
   name: 'blotFormatter',
   module: BlotFormatter
-}];
+}
+*/
+];
 
 onMounted(() => {
 });
