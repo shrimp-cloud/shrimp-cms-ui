@@ -74,14 +74,12 @@ function handleEdit(row) {
   reset();
   if (!row || !row.id) {
     form.value.pcode = row.pcode;
-    console.log('form.value', form.value);
     open.value = true;
     title.value = "添加";
     getCategoryOptions();
   } else {
     articleCategoryInfo({id:row.id}).then(res => {
       form.value = res.data;
-      console.log('form.value', form.value);
       open.value = true;
       title.value = "修改";
       getCategoryOptions();

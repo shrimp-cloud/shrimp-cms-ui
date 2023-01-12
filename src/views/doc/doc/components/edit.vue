@@ -9,8 +9,13 @@
          </el-col>
          <el-col :span="12">
            <el-form-item label="分类" prop="categoryCode">
-             <tree-select v-model:value="form.categoryCode" :options="categoryOptions" placeholder="选择分类"
-                          :objMap="{ value: 'categoryCode', label: 'categoryName', children: 'children' }"/>
+             <el-tree-select
+                 v-model="form.categoryCode"
+                 :data="categoryOptions"
+                 :render-after-expand="false"
+                 default-expand-all
+                 placeholder="选择分类"
+                 :props="{label: 'categoryName', value: 'categoryCode', children: 'children' }"/>
            </el-form-item>
          </el-col>
          <el-col :span="12">
@@ -23,10 +28,6 @@
          <el-col :span="24">
            <el-form-item label="正文" prop="content">
              <rich-text v-model:value="form.content" ref="formContentRef" placeholder="请输入正文"/>
-
-             <!--
-             <el-input v-model="form.content" type="textarea" placeholder="请输入正文: 暂时使用纯文本" />
-             -->
            </el-form-item>
          </el-col>
        </el-row>
@@ -98,7 +99,6 @@ function reset() {
 function submitForm() {
   proxy.$refs["editRef"].validate(valid => {
     if (valid) {
-      console.log(form.value.content);
       docSave(form.value).then(res => {
         proxy.$modal.msgSuccess(form.value.id === undefined ?"新增成功":"修改成功");
         open.value = false;
