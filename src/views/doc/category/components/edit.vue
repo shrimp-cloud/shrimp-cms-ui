@@ -21,6 +21,7 @@
                 :data="categoryOptions"
                 :render-after-expand="false"
                 node-key="categoryCode"
+                :check-strictly="true"
                 default-expand-all
                 placeholder="选择父类"
                 :props="{label: 'categoryName', value: 'categoryCode', disabled: 'disabled'}"/>
