@@ -12,7 +12,7 @@
         <el-button type="primary" icon="Plus" @click="handleAdd" v-hasPermi="['create']">新增</el-button>
       </el-form-item>
     </el-form>
-    <el-table v-loading="loading" height="680" :data="dataList">
+    <el-table v-loading="loading" :height="tableHeight" :data="dataList">
       <el-table-column label="ID" align="center" prop="id" width="80"/>
       <el-table-column label="作者" align="left" prop="author" min-width="120" />
       <el-table-column label="赞" align="left" prop="praiseTimes" min-width="120"/>
@@ -48,6 +48,7 @@
 import {mottoPage, mottoRemove} from "@/api/motto";
 import Edit from "./components/edit"
 
+const tableHeight = computed(() => window.innerHeight - 216);
 const { proxy } = getCurrentInstance();
 const dataList = ref([]);
 const loading = ref(true);

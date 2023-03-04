@@ -21,7 +21,7 @@
         </el-form-item>
       </el-form>
 
-      <el-table v-loading="loading" height="680" :data="pageList">
+      <el-table v-loading="loading" :height="tableHeight" :data="pageList">
         <el-table-column label="ID" align="center" prop="id" width="80"/>
         <el-table-column prop="imageUrl" label="图片" align="center" width="100">
           <template #default="scope">
@@ -65,6 +65,7 @@
 import {imageLibraryPage, imageLibraryRemove} from "@/api/imageLib";
 import Edit from "./components/edit"
 
+const tableHeight = computed(() => window.innerHeight - 216);
 const { proxy } = getCurrentInstance();
 const { IMAGE_TYPE } = proxy.useDict("IMAGE_TYPE");
 

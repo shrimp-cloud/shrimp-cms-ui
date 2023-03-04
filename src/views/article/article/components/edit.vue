@@ -1,9 +1,9 @@
 <template>
-  <el-dialog :title="title" v-model="open" width="800px" append-to-body>
+  <el-dialog :title="title" v-model="open" width="1080px" append-to-body>
      <el-form ref="editRef" :model="form" :rules="rules" label-width="80px">
        <el-row>
          <el-col :span="12">
-           <el-form-item label="标题" prop="title">
+           <el-form-item label="标题" prop="title" style="width: 90%">
              <el-input v-model="form.title" placeholder="请输入标题" />
            </el-form-item>
            <el-form-item label="分类" prop="categoryCode">
@@ -16,8 +16,14 @@
                   placeholder="选择分类"
                   :props="{label: 'categoryName', value: 'categoryCode', children: 'children' }"/>
            </el-form-item>
+
+           <el-form-item label="关键词" prop="keywords">
+             <el-input v-model="form.keywords" placeholder="请输入 关键词" />
+           </el-form-item>
+
          </el-col>
          <el-col :span="12">
+
            <el-form-item label="发布状态" prop="publishStatus">
              <el-radio-group v-model="form.publishStatus">
                <el-radio v-for="dict in BOOLEAN" :key="dict.value" :label="dict.value">{{ dict.label }}</el-radio>
@@ -28,6 +34,14 @@
                <el-radio v-for="dict in BOOLEAN" :key="dict.value" :label="dict.value">{{ dict.label }}</el-radio>
              </el-radio-group>
            </el-form-item>
+           <el-form-item label="封面" prop="thumbnail">
+             <image-preview v-if="form.thumbnail" :src="form.thumbnail" :height="80" :width="80"/>
+             <div style="padding: 0 12px 0 12px">
+               <image-choise @select="getImage"/>
+               <el-button type="danger" v-if="form.thumbnail" @click="removeImage">移除图片</el-button>
+             </div>
+           </el-form-item>
+
          </el-col>
          <el-col :span="24">
            <el-form-item label="正文" prop="content">
@@ -48,6 +62,7 @@
 <script setup name="ArticleEdit">
 import { articleInfo,articleSave, articleCategoryOptions} from "@/api/article";
 import RichText from '@/components/RichText';
+import ImageChoise from '@/views/components/ImageChoise';
 
 defineExpose({handleEdit})
 const emit = defineEmits(['change']);
@@ -60,6 +75,8 @@ const categoryOptions = ref([]);
 const form = ref({});
 const rules = ref({
   title: [{ required: true, message: "标题不能为空", trigger: "blur" }],
+  categoryCode: [{ required: true, message: "必需选择分类", trigger: "blur" }],
+  thumbnail: [{ required: true, message: "必需选择封面", trigger: "blur" }],
   publishStatus: [{ required: true, message: "发布状态必选", trigger: "blur" }]
 });
 
@@ -112,6 +129,14 @@ function submitForm() {
       });
     }
   });
+}
+
+function getImage(val) {
+  form.value.thumbnail = val.imageUrl;
+}
+
+function removeImage() {
+  form.value.thumbnail = undefined;
 }
 
 </script>

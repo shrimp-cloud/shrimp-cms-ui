@@ -21,7 +21,7 @@
         </el-form-item>
       </el-form>
 
-      <el-table v-loading="loading" height="680" :data="dataList">
+      <el-table v-loading="loading" :height="tableHeight" :data="dataList">
         <el-table-column label="ID" align="center" prop="id" width="80"/>
         <el-table-column label="标题" align="left" prop="title" min-width="200" :show-overflow-tooltip="true" />
         <el-table-column label="分类" align="left" prop="categoryName" min-width="160" :show-overflow-tooltip="true" />
@@ -60,6 +60,7 @@
 import { docPage, docRemove} from "@/api/doc";
 import Edit from "./components/edit"
 
+const tableHeight = computed(() => window.innerHeight - 216);
 const { proxy } = getCurrentInstance();
 const { BOOLEAN } = proxy.useDict("BOOLEAN");
 

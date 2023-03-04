@@ -21,13 +21,23 @@
         </el-form-item>
       </el-form>
 
-      <el-table v-loading="loading" height="680" :data="dataList">
+      <el-table v-loading="loading" :height="tableHeight" :data="dataList">
         <el-table-column label="ID" align="center" prop="id" width="80"/>
+        <el-table-column prop="thumbnail" label="主图" align="center" width="100">
+          <template #default="scope">
+            <el-image style='width: 40px; height: 40px' :src='scope.row.thumbnail' :preview-src-list=[scope.row.thumbnail]></el-image>
+          </template>
+        </el-table-column>
         <el-table-column label="标题" align="left" prop="title" min-width="200" :show-overflow-tooltip="true" />
         <el-table-column label="分类" align="left" prop="categoryName" min-width="160" :show-overflow-tooltip="true" />
+        <el-table-column label="关键词" align="left" prop="keywords" min-width="160" :show-overflow-tooltip="true" />
         <el-table-column label="发布状态" align="center" prop="publishStatus" min-width="80">
           <template #default="scope"><dict-tag :options="BOOLEAN" :value="scope.row.publishStatus"/></template>
         </el-table-column>
+        <el-table-column label="推荐状态" align="center" prop="recommend" min-width="80">
+          <template #default="scope"><dict-tag :options="BOOLEAN" :value="scope.row.recommend"/></template>
+        </el-table-column>
+        <el-table-column label="阅读量" align="left" prop="viewCount" width="80" :show-overflow-tooltip="true"/>
         <el-table-column label="修改人" align="left" prop="updateByName" width="100" :show-overflow-tooltip="true"/>
         <el-table-column label="修改时间" align="center" prop="updateTime" width="160">
           <template #default="scope"><span>{{ parseTime(scope.row.updateTime) }}</span></template>
@@ -60,6 +70,7 @@
 import { articlePage, articleRemove} from "@/api/article";
 import Edit from "./components/edit"
 
+const tableHeight = computed(() => window.innerHeight - 216);
 const { proxy } = getCurrentInstance();
 const { BOOLEAN } = proxy.useDict("BOOLEAN");
 

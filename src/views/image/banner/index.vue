@@ -21,7 +21,7 @@
         </el-form-item>
       </el-form>
 
-      <el-table v-loading="loading" height="680" :data="pageList">
+      <el-table v-loading="loading" :height="tableHeight" :data="pageList">
         <el-table-column label="ID" align="center" prop="id" width="80"/>
         <el-table-column label="名称" align="left" prop="name" min-width="120" :show-overflow-tooltip="true" />
         <el-table-column label="位置" align="center" prop="position" min-width="120">
@@ -69,6 +69,7 @@
 import {bannerPage, bannerRemove} from "@/api/banner";
 import Edit from "./components/edit"
 
+const tableHeight = computed(() => window.innerHeight - 216);
 const { proxy } = getCurrentInstance();
 const { BANNER_POSITION } = proxy.useDict("BANNER_POSITION");
 
