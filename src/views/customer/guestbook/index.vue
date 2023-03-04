@@ -1,15 +1,18 @@
 <template>
   <div class="app-container">
     <el-form :model="queryParams" ref="queryRef" :inline="true" label-width="68px">
-      <el-form-item prop="author">
-        <el-input v-model="queryParams.author" placeholder="作者" clearable style="width: 160px" @keyup.enter="handleQuery"/>
+      <el-form-item prop="mobile">
+        <el-input v-model="queryParams.mobile" placeholder="手机号" clearable style="width: 160px" @keyup.enter="handleQuery"/>
+      </el-form-item>
+      <el-form-item prop="userCode">
+        <el-input v-model="queryParams.userCode" placeholder="用户编码" clearable style="width: 160px" @keyup.enter="handleQuery"/>
+      </el-form-item>
+      <el-form-item prop="nickName">
+        <el-input v-model="queryParams.nickName" placeholder="用户名" clearable style="width: 160px" @keyup.enter="handleQuery"/>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="Search" @click="handleQuery" v-hasPermi="['page']">搜索</el-button>
         <el-button icon="Refresh" @click="resetQuery">重置</el-button>
-      </el-form-item>
-      <el-form-item style="float: right">
-        <el-button type="primary" icon="Plus" @click="handleAdd" v-hasPermi="['create']">新增</el-button>
       </el-form-item>
     </el-form>
     <el-table v-loading="loading" :height="tableHeight" :data="dataList">
@@ -59,6 +62,7 @@ const queryParams = ref({
   current: 1,
   size: 20,
   userCode: undefined,
+  nickName: undefined,
   mobile: undefined,
 });
 
