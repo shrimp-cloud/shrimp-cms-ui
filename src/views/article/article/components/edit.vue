@@ -35,13 +35,8 @@
              </el-radio-group>
            </el-form-item>
            <el-form-item label="封面" prop="thumbnail">
-             <image-preview v-if="form.thumbnail" :src="form.thumbnail" :height="80" :width="80"/>
-             <div style="padding: 0 12px 0 12px">
-               <image-choise @select="getImage"/>
-               <el-button type="danger" v-if="form.thumbnail" @click="removeImage">移除图片</el-button>
-             </div>
+             <sh-image v-model="form.thumbnail" placeholder="请选择 封面"/>
            </el-form-item>
-
          </el-col>
          <el-col :span="24">
            <el-form-item label="正文" prop="content">
@@ -62,7 +57,7 @@
 <script setup name="ArticleEdit">
 import { articleInfo,articleSave, articleCategoryOptions} from "@/api/article";
 import RichText from '@/components/RichText';
-import ImageChoise from '@/views/components/ImageChoise';
+import ShImage from '@/views/components/ShImage';
 
 defineExpose({handleEdit})
 const emit = defineEmits(['change']);
@@ -131,12 +126,5 @@ function submitForm() {
   });
 }
 
-function getImage(val) {
-  form.value.thumbnail = val.imageUrl;
-}
-
-function removeImage() {
-  form.value.thumbnail = undefined;
-}
 
 </script>

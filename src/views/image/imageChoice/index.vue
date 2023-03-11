@@ -1,34 +1,25 @@
 <template>
   <div class="app-container">
-    <h3>请从图库选择图片: </h3>
 
-    <image-choise @select="getImage"/>
+    <el-divider content-position="left">图片选择和替换</el-divider>
 
-    <h3 v-if="!form.imageUrl">未选择图片！</h3>
-    <h3 v-if="form.imageUrl">已选择的图片：</h3>
-    <image-preview :src="form.imageUrl" :height="240" :width="240"/>
+    <el-form ref="edit1Ref" :model="form" label-width="80px">
+      <sh-image v-model="form.imageUrl"/>
+    </el-form>
+
+    <el-divider content-position="left">图片批量选择-【完不成】</el-divider>
+
+
   </div>
 </template>
 <script setup name="MockImageChose">
-import ImageChoise from '@/views/components/ImageChoise';
+import ShImage from '@/views/components/ShImage';
 
 const { proxy } = getCurrentInstance();
-
-const data = reactive({
-  form: {},
-  rules: {
-    imageUrl: [{ required: true, message: "图片不能为空", trigger: "blur" }],
-  }
-});
-const { form, rules } = toRefs(data);
-
+const form = ref({});
 function init() {
   form.value.imageUrl = 'https://static.wkclz.com/images/avatar.jpg';
-}
-
-function getImage(val) {
-  form.value.imageUrl = val.imageUrl;
-  form.value.imageName = val.imageName;
+  form.value.imageUrls = 'https://static.wkclz.com/images/avatar.jpg';
 }
 
 init();
